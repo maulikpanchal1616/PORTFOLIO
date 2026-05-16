@@ -52,7 +52,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative w-full min-h-screen py-20 md:py-32 bg-gradient-to-b from-[var(--color-navy)] to-[var(--color-matte-black)] flex items-center justify-center overflow-hidden">
+    <section id="contact" className="relative w-full min-h-screen py-20 md:py-32 bg-transparent flex items-center justify-center overflow-hidden">
 
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl aspect-square bg-[var(--color-electric-blue)]/10 rounded-full blur-[100px] pointer-events-none" />
@@ -82,7 +82,10 @@ export default function Contact() {
           >
             <motion.a
               href="mailto:maulikvpanchal2006@gmail.com"
-              whileHover={{ x: 10 }}
+              whileHover={{ scale: 1.05, rotateX: 10, rotateY: -10, z: 20 }}
+              whileTap={{ scale: 0.95, rotateX: 0, rotateY: 0, z: 0 }}
+              style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
               className="flex items-center gap-4 group hover:text-[var(--color-cyan)] transition-colors w-fit"
             >
               <div className="w-14 h-14 rounded-2xl glass border border-white/10 flex items-center justify-center group-hover:border-[var(--color-cyan)] group-hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300 relative overflow-hidden">
@@ -94,7 +97,10 @@ export default function Contact() {
 
             <motion.a
               href="https://github.com/maulikpanchal1616" target="_blank" rel="noopener noreferrer"
-              whileHover={{ x: 10 }}
+              whileHover={{ scale: 1.05, rotateX: -10, rotateY: 10, z: 20 }}
+              whileTap={{ scale: 0.95, rotateX: 0, rotateY: 0, z: 0 }}
+              style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
               className="flex items-center gap-4 group hover:text-[var(--color-cyan)] transition-colors w-fit"
             >
               <div className="w-14 h-14 rounded-2xl glass border border-white/10 flex items-center justify-center group-hover:border-[var(--color-cyan)] group-hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300 relative overflow-hidden">
@@ -106,7 +112,10 @@ export default function Contact() {
 
             <motion.a
               href="https://linkedin.com/in/maulik-panchal-260621295" target="_blank" rel="noopener noreferrer"
-              whileHover={{ x: 10 }}
+              whileHover={{ scale: 1.05, rotateX: 10, rotateY: 10, z: 20 }}
+              whileTap={{ scale: 0.95, rotateX: 0, rotateY: 0, z: 0 }}
+              style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
               className="flex items-center gap-4 group hover:text-[var(--color-cyan)] transition-colors w-fit"
             >
               <div className="w-14 h-14 rounded-2xl glass border border-white/10 flex items-center justify-center group-hover:border-[var(--color-cyan)] group-hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300 relative overflow-hidden">
@@ -114,6 +123,21 @@ export default function Contact() {
                 <LinkedinIcon className="w-6 h-6 text-white/70 group-hover:text-[var(--color-cyan)] relative z-10" />
               </div>
               <span className="text-lg font-light tracking-wide">LinkedIn Profile</span>
+            </motion.a>
+
+            <motion.a
+              href="/MAULIK V PANCHAL.pdf" download="Maulik_Panchal_Resume.pdf"
+              whileHover={{ scale: 1.05, rotateX: -10, rotateY: -10, z: 20 }}
+              whileTap={{ scale: 0.95, rotateX: 0, rotateY: 0, z: 0 }}
+              style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              className="flex items-center gap-4 group hover:text-[var(--color-cyan)] transition-colors w-fit"
+            >
+              <div className="w-14 h-14 rounded-2xl glass border border-white/10 flex items-center justify-center group-hover:border-[var(--color-cyan)] group-hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-white/70 group-hover:text-[var(--color-cyan)] relative z-10"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              </div>
+              <span className="text-lg font-light tracking-wide">Download Resume</span>
             </motion.a>
           </motion.div>
         </div>
@@ -193,16 +217,20 @@ export default function Contact() {
                 </label>
               </div>
 
-              <button
+              <motion.button
                 type="submit"
                 disabled={status === "sending"}
+                whileHover={status === "sending" ? {} : { scale: 1.05, rotateX: 15, boxShadow: "0 20px 40px rgba(0,240,255,0.4)" }}
+                whileTap={status === "sending" ? {} : { scale: 0.95, rotateX: 0 }}
+                style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 className="magnetic relative w-full py-4 mt-4 bg-white text-black font-bold rounded-xl overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span className="relative z-10 group-hover:text-white transition-colors duration-500">
+                <span className="relative z-10 group-hover:text-white transition-colors duration-500 block" style={{ transform: "translateZ(30px)" }}>
                   {status === "sending" ? "Sending..." : "Send Message"}
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-electric-blue)] to-[var(--color-neon-purple)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
-              </button>
+                <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-electric-blue)] to-[var(--color-neon-purple)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" style={{ transform: "translateZ(-10px)" }} />
+              </motion.button>
 
               {status === "error" && (
                 <p className="text-red-400 text-sm text-center mt-2">Something went wrong. Please try again or email me directly.</p>

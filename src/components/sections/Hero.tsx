@@ -7,6 +7,17 @@ import { useEffect, useState } from "react";
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [downloadStatus, setDownloadStatus] = useState<"idle" | "downloading" | "done">("idle");
+
+  const handleDownload = () => {
+    setDownloadStatus("downloading");
+    setTimeout(() => {
+      setDownloadStatus("done");
+      setTimeout(() => {
+        setDownloadStatus("idle");
+      }, 2000);
+    }, 1500);
+  };
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -29,9 +40,8 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-[var(--color-matte-black)]">
-      {/* Bottom Fade Overlay for 3D Elements */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[var(--color-matte-black)] to-transparent z-20 pointer-events-none" />
+    <section id="hero" className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-transparent" style={{ maskImage: 'linear-gradient(to bottom, black 80%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent)' }}>
+      {/* Hero content */}
 
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
@@ -81,7 +91,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-12 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full max-w-xs sm:max-w-none"
+          className="mt-12 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full max-w-xs sm:max-w-none justify-center"
         >
           <a 
             href="/#projects" 
@@ -93,11 +103,61 @@ export default function Hero() {
           </a>
           
           <a 
+            href="/MAULIK V PANCHAL.pdf" 
+            download="Maulik_Panchal_Resume.pdf"
+            onClick={handleDownload}
+            className={`magnetic group relative px-8 py-4 font-medium rounded-full transition-all duration-500 w-full sm:w-auto text-center flex items-center justify-center gap-2 overflow-hidden ${
+              downloadStatus === "downloading" ? "text-[var(--color-cyan)] bg-white/10" : 
+              downloadStatus === "done" ? "text-green-400 bg-green-500/20" : 
+              "text-white glass hover:bg-white/10"
+            }`}
+          >
+            {/* Background progress animation for downloading */}
+            {downloadStatus === "downloading" && (
+              <motion.div 
+                initial={{ x: "-100%" }}
+                animate={{ x: "0%" }}
+                transition={{ duration: 1.5, ease: "linear" }}
+                className="absolute inset-0 bg-[var(--color-cyan)]/20 z-0"
+              />
+            )}
+            
+            <div className="relative z-10 flex items-center gap-2">
+              {downloadStatus === "idle" && (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-y-1 transition-transform duration-300"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                  <span>Download Resume</span>
+                </>
+              )}
+              {downloadStatus === "downloading" && (
+                <>
+                  <motion.svg animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></motion.svg>
+                  <span>Downloading...</span>
+                </>
+              )}
+              {downloadStatus === "done" && (
+                <>
+                  <motion.svg initial={{ scale: 0 }} animate={{ scale: 1 }} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></motion.svg>
+                  <span>Downloaded!</span>
+                </>
+              )}
+            </div>
+          </a>
+
+          <a 
             href="/#contact" 
             onClick={(e) => handleScrollTo(e, "contact")}
-            className="magnetic group relative px-8 py-4 text-white font-medium rounded-full glass hover:bg-white/10 transition-colors duration-500 w-full sm:w-auto text-center"
+            className="magnetic group relative px-8 py-4 text-white/60 hover:text-white font-medium rounded-full transition-all duration-500 w-full sm:w-auto text-center flex items-center justify-center gap-2"
           >
-            Let's Build Something
+            <span>Let's Build Something</span>
+            <motion.svg 
+              animate={{ x: [0, 5, 0] }} 
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300"
+            >
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </motion.svg>
           </a>
         </motion.div>
       </div>

@@ -26,7 +26,9 @@ export default function FlipCard3D({ title, desc, tech, image, github }: { title
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
       >
         {/* Front */}
-        <div className="absolute inset-0 [backface-visibility:hidden] glass rounded-2xl p-6 flex flex-col justify-end overflow-hidden border border-white/10 group bg-[var(--color-charcoal)]">
+        <div 
+          className={`absolute inset-0 [backface-visibility:hidden] glass rounded-2xl p-6 flex flex-col justify-end overflow-hidden border border-white/10 group bg-[var(--color-charcoal)] transition-opacity duration-300 ${isFlipped ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
+        >
           {image && (
             <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover mix-blend-screen opacity-50 group-hover:scale-110 group-hover:opacity-80 transition-all duration-700 z-0" />
           )}
@@ -44,7 +46,10 @@ export default function FlipCard3D({ title, desc, tech, image, github }: { title
         </div>
 
         {/* Back */}
-        <div className="absolute inset-0 [backface-visibility:hidden] glass rounded-2xl p-6 flex flex-col items-center justify-center border border-[var(--color-electric-blue)] bg-[var(--color-navy)] shadow-[0_0_30px_rgba(0,240,255,0.2)]" style={{ transform: "rotateX(180deg)" }}>
+        <div 
+          className={`absolute inset-0 [backface-visibility:hidden] glass rounded-2xl p-6 flex flex-col items-center justify-center border border-[var(--color-electric-blue)] bg-[var(--color-navy)] shadow-[0_0_30px_rgba(0,240,255,0.2)] transition-opacity duration-300 ${!isFlipped ? 'pointer-events-none opacity-0' : 'opacity-100'}`} 
+          style={{ transform: "rotateX(180deg)" }}
+        >
           <h3 className="text-xl font-bold text-white mb-4">Tech Stack</h3>
           <div className="flex flex-wrap justify-center gap-2 mb-6">
             {tech.map((t) => (

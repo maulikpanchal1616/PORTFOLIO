@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Float, Text, Icosahedron } from "@react-three/drei";
 import * as THREE from "three";
@@ -13,7 +13,7 @@ const skills = [
   "APIs", "DBMS", "OOP"
 ];
 
-function SkillNode({ text, position }: { text: string; position: [number, number, number] }) {
+function SkillNode({ text, position, scale = 1, fontSize = 0.35 }: { text: string; position: [number, number, number]; scale?: number; fontSize?: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
   
   const color = useMemo(() => {
@@ -24,7 +24,7 @@ function SkillNode({ text, position }: { text: string; position: [number, number
 
   return (
     <Float speed={2} rotationIntensity={1} floatIntensity={2} position={position}>
-      <Icosahedron args={[1, 1]} ref={meshRef}>
+      <Icosahedron args={[0.9 * scale, 1]} ref={meshRef}>
         <meshStandardMaterial 
           color={color} 
           wireframe 
@@ -36,7 +36,7 @@ function SkillNode({ text, position }: { text: string; position: [number, number
       </Icosahedron>
       <Text
         position={[0, 0, 0]}
-        fontSize={0.4}
+        fontSize={fontSize}
         color="white"
         anchorX="center"
         anchorY="middle"
@@ -51,6 +51,16 @@ function SkillNode({ text, position }: { text: string; position: [number, number
 
 export default function SkillsSpheres() {
   const groupRef = useRef<THREE.Group>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useFrame((state) => {
     if (groupRef.current) {
@@ -61,14 +71,22 @@ export default function SkillsSpheres() {
 
   const nodes = useMemo(() => {
     return skills.map((skill, i) => {
-      const radius = 6.0;
+      const radius = isMobile ? 4.5 : 6.5;
       const angle = (i / skills.length) * Math.PI * 2;
       const x = Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
-      const y = (Math.random() - 0.5) * 3;
-      return <SkillNode key={skill} text={skill} position={[x, y, z]} />;
+      const y = (Math.random() - 0.5) * (isMobile ? 3 : 4);
+      return (
+        <SkillNode 
+          key={skill} 
+          text={skill} 
+          position={[x, y, z]} 
+          scale={isMobile ? 0.6 : 1}
+          fontSize={isMobile ? 0.25 : 0.35}
+        />
+      );
     });
-  }, []);
+  }, [isMobile]);
 
   return (
     <group ref={groupRef}>

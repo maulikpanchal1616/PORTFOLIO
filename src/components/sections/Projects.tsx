@@ -43,7 +43,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative w-full py-20 md:py-32 bg-gradient-to-b from-[var(--color-navy)] to-[var(--color-matte-black)] overflow-hidden">
+    <section id="projects" className="relative w-full py-20 md:py-32 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
       <div className="max-w-7xl mx-auto px-4">
         
         <motion.div 

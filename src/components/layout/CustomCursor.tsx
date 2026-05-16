@@ -11,12 +11,8 @@ export default function CustomCursor() {
   useEffect(() => {
     setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
     
-    const handleMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-    };
-
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+    const updateHoverState = (target: HTMLElement | null) => {
+      if (!target) return;
       if (
         target.tagName.toLowerCase() === "button" ||
         target.tagName.toLowerCase() === "a" ||
@@ -30,16 +26,33 @@ export default function CustomCursor() {
       }
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        setPosition({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+        updateHoverState(e.touches[0].target as HTMLElement);
+      }
+    };
+
+    const handleMouseOver = (e: MouseEvent) => {
+      updateHoverState(e.target as HTMLElement);
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("touchstart", handleTouchMove);
+    window.addEventListener("touchmove", handleTouchMove);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("touchstart", handleTouchMove);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, []);
-
-  if (isTouch) return null;
 
   return (
     <>

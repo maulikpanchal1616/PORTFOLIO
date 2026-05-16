@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full py-12 bg-[var(--color-matte-black)] border-t border-white/5 overflow-hidden flex flex-col items-center justify-center">
+    <footer className="relative w-full py-12 bg-transparent border-t border-white/5 overflow-hidden flex flex-col items-center justify-center">
       {/* Glowing Accent Line */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--color-cyan)] to-transparent opacity-50" />
       

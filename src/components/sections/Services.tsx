@@ -12,7 +12,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative w-full py-20 md:py-32 bg-gradient-to-b from-[var(--color-matte-black)] to-[var(--color-charcoal)] overflow-hidden">
+    <section id="services" className="relative w-full py-20 md:py-32 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
       <div className="max-w-7xl mx-auto px-4">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

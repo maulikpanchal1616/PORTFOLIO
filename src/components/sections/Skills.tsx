@@ -7,13 +7,11 @@ import { OrbitControls } from "@react-three/drei";
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative w-full h-screen bg-gradient-to-b from-[var(--color-charcoal)] to-[var(--color-navy)] overflow-hidden flex flex-col items-center justify-center">
+    <section id="skills" className="relative w-full h-[80vh] md:h-screen bg-transparent overflow-hidden flex flex-col items-center justify-center" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
       
-      {/* Seamless Fade Overlays for 3D Elements */}
-      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[var(--color-charcoal)] to-transparent z-20 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[var(--color-navy)] to-transparent z-20 pointer-events-none" />
+      {/* Background is handled globally by Global3DBackground */}
 
-      <div className="absolute top-20 left-0 right-0 z-30 text-center pointer-events-none">
+      <div className="absolute top-20 md:top-24 left-0 right-0 z-30 text-center pointer-events-none">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -26,7 +24,7 @@ export default function Skills() {
       </div>
 
       <div className="absolute inset-0 z-10 cursor-move">
-        <Canvas camera={{ position: [0, 0, 10], fov: 60 }}>
+        <Canvas camera={{ position: [0, 0, 12], fov: 60 }}>
           <ambientLight intensity={0.2} />
           <pointLight position={[10, 10, 10]} intensity={1} color="#00f0ff" />
           <pointLight position={[-10, -10, -10]} intensity={1} color="#a855f7" />

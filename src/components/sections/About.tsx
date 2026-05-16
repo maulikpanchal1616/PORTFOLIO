@@ -1,10 +1,20 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [downloadStatus, setDownloadStatus] = useState<"idle" | "downloading" | "done">("idle");
+  
+  const handleDownload = () => {
+    setDownloadStatus("downloading");
+    setTimeout(() => {
+      setDownloadStatus("done");
+      setTimeout(() => setDownloadStatus("idle"), 2000);
+    }, 1500);
+  };
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
@@ -15,7 +25,7 @@ export default function About() {
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section id="about" ref={containerRef} className="relative w-full py-20 md:py-40 bg-gradient-to-b from-[var(--color-matte-black)] to-[var(--color-charcoal)] overflow-hidden">
+    <section id="about" ref={containerRef} className="relative w-full py-20 md:py-40 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-10 md:gap-20">
         
         {/* Profile Image / Abstract Frame */}
@@ -58,6 +68,56 @@ export default function About() {
               </span>
             ))}
           </div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            className="mt-6"
+          >
+            <a 
+              href="/MAULIK V PANCHAL.pdf" 
+              download="Maulik_Panchal_Resume.pdf"
+              onClick={handleDownload}
+              className={`magnetic group relative inline-flex items-center gap-3 px-8 py-4 font-bold rounded-2xl border transition-all duration-300 overflow-hidden ${
+                downloadStatus === "downloading" ? "bg-[var(--color-cyan)]/10 text-[var(--color-cyan)] border-[var(--color-cyan)]/30" :
+                downloadStatus === "done" ? "bg-green-500/10 text-green-400 border-green-500/30" :
+                "bg-white/5 hover:bg-white/10 text-white border-white/10"
+              }`}
+            >
+              {downloadStatus === "downloading" && (
+                <motion.div 
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "0%" }}
+                  transition={{ duration: 1.5, ease: "linear" }}
+                  className="absolute inset-0 bg-[var(--color-cyan)]/10 z-0"
+                />
+              )}
+              
+              <div className="relative z-10 flex items-center gap-3">
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors duration-300 ${
+                  downloadStatus === "downloading" ? "bg-[var(--color-cyan)]/20" :
+                  downloadStatus === "done" ? "bg-green-500/20" :
+                  "bg-[var(--color-cyan)]/20 group-hover:bg-[var(--color-cyan)]"
+                }`}>
+                  {downloadStatus === "idle" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--color-cyan)] group-hover:text-black transition-colors duration-300"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                  )}
+                  {downloadStatus === "downloading" && (
+                    <motion.svg animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--color-cyan)]"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></motion.svg>
+                  )}
+                  {downloadStatus === "done" && (
+                    <motion.svg initial={{ scale: 0 }} animate={{ scale: 1 }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-400"><path d="M20 6 9 17l-5-5"/></motion.svg>
+                  )}
+                </div>
+                <span className="tracking-wide">
+                  {downloadStatus === "idle" ? "Download Full Resume" : 
+                   downloadStatus === "downloading" ? "Downloading..." : "Downloaded!"}
+                </span>
+              </div>
+            </a>
+          </motion.div>
         </motion.div>
       </div>
     </section>

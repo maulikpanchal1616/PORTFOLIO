@@ -34,7 +34,7 @@ export default function Experience() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="experience" ref={containerRef} className="relative w-full py-20 md:py-32 bg-[var(--color-charcoal)] overflow-hidden">
+    <section id="experience" ref={containerRef} className="relative w-full py-20 md:py-32 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
       <div className="max-w-4xl mx-auto px-4 relative">
         
         <motion.div 

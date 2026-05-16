@@ -79,11 +79,20 @@ export default function Navbar() {
     <>
       <motion.header
         initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        animate={{ 
+          y: 0, 
+          opacity: 1 
+        }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-4 pointer-events-none"
       >
-        <nav className="pointer-events-auto transition-all duration-500 rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl relative bg-[var(--color-matte-black)] border border-white/10 z-50">
+        <nav 
+          className={`pointer-events-auto transition-all duration-500 rounded-full px-6 py-3 flex items-center gap-8 relative z-50 border border-white/10 ${
+            scrolled 
+              ? "bg-black/60 backdrop-blur-2xl shadow-[0_0_40px_rgba(0,0,0,0.5)] py-2.5 scale-[0.98]" 
+              : "bg-white/5 backdrop-blur-md"
+          }`}
+        >
           <a href="/#hero" onClick={(e) => handleScrollTo(e, "hero")} className="text-white font-bold text-xl tracking-tighter magnetic outline-none focus-visible:text-[var(--color-cyan)]">
             MP<span className="text-[var(--color-electric-blue)]">.</span>
           </a>

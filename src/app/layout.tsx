@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   description: "Explore the cinematic portfolio of Maulik Panchal, a Full Stack Developer specializing in premium, award-winning digital experiences. Bridging the gap between futuristic UI/UX design and robust engineering, I craft high-performance web applications, immersive 3D interfaces, and AI-powered solutions that elevate brands into the next digital era.",
 };
 
+import Global3DBackground from "@/components/ui/Global3DBackground";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +29,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable} h-full antialiased overflow-x-hidden`}>
-      <body suppressHydrationWarning className="min-h-full flex flex-col font-sans selection:bg-[var(--color-electric-blue)] selection:text-black">
+      <body suppressHydrationWarning className="min-h-full flex flex-col font-sans selection:bg-[var(--color-electric-blue)] selection:text-black bg-transparent">
+        <Global3DBackground />
         <SmoothScroll>
           <CustomCursor />
           <Navbar />
