@@ -34,7 +34,7 @@ export default function Experience() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="experience" ref={containerRef} className="relative w-full py-20 md:py-32 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
+    <section id="experience" ref={containerRef} className="relative w-full py-20 md:py-32 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)' }}>
       <div className="max-w-4xl mx-auto px-4 relative">
         
         <motion.div 
@@ -43,8 +43,8 @@ export default function Experience() {
           viewport={{ once: true }}
           className="mb-20 text-center"
         >
-          <h2 className="text-4xl md:text-6xl font-heading font-bold text-white tracking-tight">
-            Journey & <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-electric-blue)] to-[var(--color-neon-purple)]">Evolution</span>
+          <h2 className="text-4xl md:text-6xl font-heading font-bold text-white tracking-tight drop-shadow-[0_0_30px_rgba(255,255,255,0.25)]">
+            Journey & <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-electric-blue)] to-[var(--color-neon-purple)] filter drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">Evolution</span>
           </h2>
         </motion.div>
 

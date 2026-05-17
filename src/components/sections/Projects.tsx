@@ -43,7 +43,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative w-full py-20 md:py-32 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
+    <section id="projects" className="relative w-full py-20 md:py-32 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)' }}>
       <div className="max-w-7xl mx-auto px-4">
         
         <motion.div 
@@ -53,8 +53,8 @@ export default function Projects() {
           transition={{ duration: 0.8 }}
           className="mb-20 text-center"
         >
-          <h2 className="text-4xl md:text-6xl font-heading font-bold text-white tracking-tight mb-4">
-            Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-cyan)] to-white">Works</span>
+          <h2 className="text-4xl md:text-6xl font-heading font-bold text-white tracking-tight mb-4 drop-shadow-[0_0_30px_rgba(255,255,255,0.25)]">
+            Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-cyan)] to-[var(--color-neon-purple)] filter drop-shadow-[0_0_25px_rgba(0,229,255,0.5)]">Works</span>
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
             A curated selection of cinematic digital experiences, blending engineering precision with aesthetic luxury.

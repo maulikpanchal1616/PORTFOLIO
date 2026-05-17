@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import HangingIdCard from "@/components/ui/HangingIdCard";
 
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -28,21 +29,19 @@ export default function About() {
     <section id="about" ref={containerRef} className="relative w-full py-20 md:py-40 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-10 md:gap-20">
         
-        {/* Profile Image / Abstract Frame */}
+        {/* Interactive Physics-based Hanging Developer Badge */}
         <motion.div 
           style={{ y: y1, opacity }}
-          className="relative w-full md:w-1/2 aspect-square max-w-md"
+          className="relative w-full md:w-1/2 flex items-center justify-center min-h-[380px] md:min-h-[450px]"
         >
-          <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-electric-blue)] to-[var(--color-neon-purple)] rounded-3xl blur-3xl opacity-30 animate-pulse" />
-          <div className="relative w-full h-full glass rounded-3xl overflow-hidden border border-white/10 flex items-center justify-center group">
-            <img src="/images/profile.png" alt="Maulik Panchal Profile" className="absolute inset-0 w-full h-full object-cover mix-blend-screen opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
-            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-700 pointer-events-none" />
-            <motion.div 
-              whileHover={{ scale: 1.05, rotate: 2 }}
-              transition={{ duration: 0.5 }}
-              className="relative z-10 w-[90%] h-[90%] border border-[var(--color-cyan)]/30 rounded-3xl pointer-events-none"
-            />
-          </div>
+          {/* Subtle background cosmic glow */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-cyan)]/10 to-[var(--color-neon-purple)]/10 rounded-full blur-3xl opacity-40 animate-pulse pointer-events-none" />
+          
+          <HangingIdCard 
+            accentColor="var(--color-cyan)"
+            ropeColor="rgba(255, 255, 255, 0.15)"
+            className="z-10"
+          />
         </motion.div>
 
         {/* Layered Typography */}

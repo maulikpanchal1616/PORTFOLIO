@@ -7,19 +7,19 @@ import { OrbitControls } from "@react-three/drei";
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative w-full h-[80vh] md:h-screen bg-transparent overflow-hidden flex flex-col items-center justify-center" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
+    <section id="skills" className="relative w-full h-[80vh] md:h-screen bg-transparent overflow-hidden flex flex-col items-center justify-center" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)' }}>
       
       {/* Background is handled globally by Global3DBackground */}
-
+ 
       <div className="absolute top-20 md:top-24 left-0 right-0 z-30 text-center pointer-events-none">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-3xl sm:text-4xl md:text-6xl font-heading font-bold text-white tracking-tight px-4"
+          className="text-3xl sm:text-4xl md:text-6xl font-heading font-bold text-white tracking-tight px-4 drop-shadow-[0_0_30px_rgba(255,255,255,0.25)]"
         >
-          Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-neon-purple)] to-[var(--color-cyan)]">Arsenal</span>
+          Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-neon-purple)] to-[var(--color-cyan)] filter drop-shadow-[0_0_25px_rgba(0,229,255,0.5)]">Arsenal</span>
         </motion.h2>
       </div>
 

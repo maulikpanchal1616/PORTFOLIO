@@ -12,7 +12,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative w-full py-20 md:py-32 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
+    <section id="services" className="relative w-full py-20 md:py-32 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)' }}>
       <div className="max-w-7xl mx-auto px-4">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -20,8 +20,8 @@ export default function Services() {
           viewport={{ once: true }}
           className="mb-20 text-center"
         >
-          <h2 className="text-4xl md:text-6xl font-heading font-bold text-white tracking-tight mb-4">
-            Specialized <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-cyan)] to-[var(--color-neon-purple)]">Services</span>
+          <h2 className="text-4xl md:text-6xl font-heading font-bold text-white tracking-tight mb-4 drop-shadow-[0_0_30px_rgba(255,255,255,0.25)]">
+            Specialized <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-cyan)] to-[var(--color-neon-purple)] filter drop-shadow-[0_0_25px_rgba(0,229,255,0.5)]">Services</span>
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
             Delivering world-class digital solutions engineered for the future.
