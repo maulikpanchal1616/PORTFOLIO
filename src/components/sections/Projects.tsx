@@ -16,7 +16,8 @@ const projects = [
     desc: "A complete management system designed to handle customer records, vehicle service details, workflow tracking, and operational management efficiently.",
     tech: ["Python", "SQL", "Django"],
     image: "/images/project_garage.png",
-    github: "https://github.com/maulikpanchal1616/AUTO-ELITE-GARAGE"
+    github: "https://github.com/maulikpanchal1616/AUTO-ELITE-GARAGE",
+    live: "https://autoelitegarage.vercel.app/"
   },
   {
     title: "Tuition Management System",
@@ -26,11 +27,20 @@ const projects = [
     github: "https://github.com/maulikpanchal1616/TUTIION-MANAGEMENT-SYSTEM"
   },
   {
-    title: "Khanipini",
+    title: "Khanipini Store",
     desc: "An online food ordering platform where shop owners can upload products and customers can browse and place orders seamlessly.",
     tech: ["HTML", "CSS", "JavaScript", "DBMS"],
     image: "/images/project_khanipini.png",
-    github: "https://github.com/maulikpanchal1616/PANIPURI.COM"
+    github: "https://github.com/maulikpanchal1616/PANIPURI.COM",
+    live: "https://khanipinistore.vercel.app/"
+  },
+  {
+    title: "Crush Coffee Shop",
+    desc: "A premium, responsive digital menu and website experience for a luxury coffee brand, built with smooth scrolling animations and modern UI aesthetics.",
+    tech: ["HTML", "CSS", "JavaScript", "Responsive Design"],
+    image: "/images/project_crushcoffee.png",
+    github: "https://github.com/maulikpanchal1616/CRUSHCOFFE-WEBSITE.git",
+    live: "https://crushcoffee.vercel.app/"
   },
   {
     title: "Creative Portfolios",
@@ -76,6 +86,7 @@ export default function Projects() {
                 tech={project.tech}
                 image={project.image}
                 github={project.github}
+                live={project.live}
               />
             </motion.div>
           ))}

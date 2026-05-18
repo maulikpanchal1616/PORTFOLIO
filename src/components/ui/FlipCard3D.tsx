@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-export default function FlipCard3D({ title, desc, tech, image, github }: { title: string, desc: string, tech: string[], image?: string, github?: string }) {
+export default function FlipCard3D({ title, desc, tech, image, github, live }: { title: string, desc: string, tech: string[], image?: string, github?: string, live?: string }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -58,18 +58,32 @@ export default function FlipCard3D({ title, desc, tech, image, github }: { title
               </span>
             ))}
           </div>
-          {github && (
-            <a 
-              href={github} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="px-6 py-2 bg-white text-black font-semibold rounded-full hover:scale-105 transition-transform magnetic inline-flex items-center gap-2"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3-.3 6-1.5 6-6.5a5.5 5.5 0 0 0-1.5-3.8 5.5 5.5 0 0 0-.1-3.8s-1.2-.4-3.9 1.4a13.4 13.4 0 0 0-7 0C6.2 1.4 5 1.8 5 1.8a5.5 5.5 0 0 0-.1 3.8A5.5 5.5 0 0 0 3.4 9.4c0 5 3 6.2 6 6.5a4.8 4.8 0 0 0-1 3.2v4"/></svg>
-              View on GitHub
-            </a>
-          )}
+          <div className="flex flex-wrap justify-center gap-3 w-full px-4">
+            {github && (
+              <a 
+                href={github} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-4 py-2 border border-white/20 bg-white/5 hover:bg-white hover:text-black text-white font-semibold rounded-full transition-all duration-300 magnetic flex items-center justify-center gap-2 text-sm backdrop-blur-sm"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3-.3 6-1.5 6-6.5a5.5 5.5 0 0 0-1.5-3.8 5.5 5.5 0 0 0-.1-3.8s-1.2-.4-3.9 1.4a13.4 13.4 0 0 0-7 0C6.2 1.4 5 1.8 5 1.8a5.5 5.5 0 0 0-.1 3.8A5.5 5.5 0 0 0 3.4 9.4c0 5 3 6.2 6 6.5a4.8 4.8 0 0 0-1 3.2v4"/></svg>
+                GitHub
+              </a>
+            )}
+            {live && (
+              <a 
+                href={live} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-gradient-to-r from-[var(--color-cyan)] to-[var(--color-electric-blue)] hover:brightness-110 text-black font-bold rounded-full transition-all duration-300 magnetic flex items-center justify-center gap-2 text-sm shadow-[0_0_15px_rgba(0,240,255,0.3)] hover:scale-105"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                Live Demo
+              </a>
+            )}
+          </div>
         </div>
       </motion.div>
     </div>
