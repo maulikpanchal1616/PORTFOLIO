@@ -5,6 +5,13 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
+    title: "AXAR AI & Enterprise",
+    desc: "A premium industrial intelligence platform for high-efficiency Spray/Rotary Dryers. Powered by next-gen intelligent thermal engineering, featuring real-time energy efficiency dashboards and interactive industrial chatbot UI.",
+    tech: ["Next.js", "TypeScript", "TailwindCSS", "Framer Motion"],
+    image: "/images/project_akshar.png",
+    live: "https://aksharenterprise.vercel.app/"
+  },
+  {
     title: "Scholar AI",
     desc: "An AI-powered educational platform focused on solving mathematical problems with step-by-step explanations and smarter student learning experiences.",
     tech: ["React", "AI APIs", "TailwindCSS", "JavaScript"],
