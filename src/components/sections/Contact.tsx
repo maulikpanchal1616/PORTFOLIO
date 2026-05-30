@@ -126,7 +126,7 @@ export default function Contact() {
             </motion.a>
 
             <motion.a
-              href="/MAULIK V PANCHAL.pdf" download="Maulik_Panchal_Resume.pdf"
+              href="/MAULIK V PANCHAL .pdf" download="Maulik_Panchal_Resume.pdf"
               whileHover={{ scale: 1.05, rotateX: -10, rotateY: -10, z: 20 }}
               whileTap={{ scale: 0.95, rotateX: 0, rotateY: 0, z: 0 }}
               style={{ transformStyle: "preserve-3d", perspective: 1000 }}

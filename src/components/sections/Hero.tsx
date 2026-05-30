@@ -103,7 +103,7 @@ export default function Hero() {
           </a>
           
           <a 
-            href="/MAULIK V PANCHAL.pdf" 
+            href="/MAULIK V PANCHAL .pdf" 
             download="Maulik_Panchal_Resume.pdf"
             onClick={handleDownload}
             className={`magnetic group relative px-8 py-4 font-medium rounded-full transition-all duration-500 w-full sm:w-auto text-center flex items-center justify-center gap-2 overflow-hidden ${

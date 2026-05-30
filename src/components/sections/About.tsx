@@ -76,7 +76,7 @@ export default function About() {
             className="mt-6"
           >
             <a 
-              href="/MAULIK V PANCHAL.pdf" 
+              href="/MAULIK V PANCHAL .pdf" 
               download="Maulik_Panchal_Resume.pdf"
               onClick={handleDownload}
               className={`magnetic group relative inline-flex items-center gap-3 px-8 py-4 font-bold rounded-2xl border transition-all duration-300 overflow-hidden ${
