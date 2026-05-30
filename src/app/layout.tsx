@@ -17,8 +17,47 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Maulik Panchal | Premium Cinematic Portfolio",
-  description: "Explore the cinematic portfolio of Maulik Panchal, a Full Stack Developer specializing in premium, award-winning digital experiences. Bridging the gap between futuristic UI/UX design and robust engineering, I craft high-performance web applications, immersive 3D interfaces, and AI-powered solutions that elevate brands into the next digital era.",
+  title: "Maulik Panchal | Full Stack Developer | AI Developer | Ahmedabad",
+  description: "Maulik Panchal is a BCA graduate and Full Stack Developer from Ahmedabad specializing in React, Next.js, AI applications, Python, Django, and modern web development projects.",
+  keywords: [
+    "Maulik Panchal",
+    "Full Stack Developer Ahmedabad",
+    "React Developer",
+    "Next.js Developer",
+    "AI Developer",
+    "Python Developer",
+    "BCA Developer Gujarat",
+    "Web Developer Portfolio"
+  ],
+  authors: [{ name: "Maulik Panchal" }],
+  creator: "Maulik Panchal",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Maulik Panchal | Full Stack Developer | AI Developer | Ahmedabad",
+    description: "Maulik Panchal is a BCA graduate and Full Stack Developer from Ahmedabad specializing in React, Next.js, AI applications, Python, Django, and modern web development projects.",
+    url: "/",
+    siteName: "Maulik Panchal Portfolio",
+    type: "website",
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Maulik Panchal | Full Stack Developer | AI Developer | Ahmedabad",
+    description: "Maulik Panchal is a BCA graduate and Full Stack Developer from Ahmedabad specializing in React, Next.js, AI applications, Python, Django, and modern web development projects.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 import Global3DBackground from "@/components/ui/Global3DBackground";
