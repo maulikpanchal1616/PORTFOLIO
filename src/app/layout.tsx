@@ -72,7 +72,7 @@ export default function RootLayout({
     "@type": "Person",
     "name": "Maulik Panchal",
     "jobTitle": "Full Stack Developer",
-    "url": "https://maulikpanchal.com",
+    "url": "https://maulikvp.vercel.app",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Ahmedabad",
