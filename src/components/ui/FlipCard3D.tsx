@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function FlipCard3D({ title, desc, tech, image, github, live }: { title: string, desc: string, tech: string[], image?: string, github?: string, live?: string }) {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -30,10 +31,13 @@ export default function FlipCard3D({ title, desc, tech, image, github, live }: {
           className={`absolute inset-0 [backface-visibility:hidden] glass rounded-2xl p-6 flex flex-col justify-end overflow-hidden border border-white/10 group bg-[var(--color-charcoal)] transition-opacity duration-300 ${isFlipped ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
         >
           {image && (
-            <img 
+            <Image 
               src={image} 
-              alt={title} 
-              className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700 z-0 filter brightness-110 contrast-105" 
+              alt={`Screenshot of ${title} project`}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700 z-0 filter brightness-110 contrast-105" 
+              loading="lazy"
             />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent z-10" />

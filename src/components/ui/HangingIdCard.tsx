@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import { cn } from "@/components/lib/utils";
+import Image from "next/image";
 
 // ─── Physics constants ────────────────────────────────────────────────────────
 const SPRING_K = 0;          // No spring! A real pendulum relies only on gravity
@@ -202,10 +203,13 @@ export const HangingIdCard = ({
                   DEVELOPER PASS
                 </p>
                 <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm mt-1 shadow-inner overflow-hidden border border-white/10">
-                  <img
+                  <Image
                     src={profileImage}
-                    alt="Maulik Panchal Profile"
-                    className="h-full w-full object-cover mix-blend-normal filter brightness-100"
+                    alt="Maulik Panchal Profile, Full Stack Developer"
+                    fill
+                    sizes="56px"
+                    className="object-cover mix-blend-normal filter brightness-100"
+                    loading="lazy"
                   />
                 </div>
               </div>
