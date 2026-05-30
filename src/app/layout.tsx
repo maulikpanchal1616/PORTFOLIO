@@ -67,8 +67,40 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Maulik Panchal",
+    "jobTitle": "Full Stack Developer",
+    "url": "https://maulikpanchal.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ahmedabad",
+      "addressRegion": "Gujarat",
+      "addressCountry": "India"
+    },
+    "knowsAbout": [
+      "React",
+      "Next.js",
+      "Python",
+      "Django",
+      "AI",
+      "Web Development"
+    ],
+    "sameAs": [
+      "https://github.com/maulikpanchal1616",
+      "https://linkedin.com/in/maulik-panchal-260621295"
+    ]
+  };
+
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable} h-full antialiased overflow-x-hidden`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body suppressHydrationWarning className="min-h-full flex flex-col font-sans selection:bg-[var(--color-electric-blue)] selection:text-black bg-transparent">
         <Global3DBackground />
         <SmoothScroll>
