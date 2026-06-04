@@ -62,6 +62,8 @@ export const metadata: Metadata = {
 
 import Global3DBackground from "@/components/ui/Global3DBackground";
 
+import PremiumWatermark from "@/components/ui/PremiumWatermark";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -107,6 +109,7 @@ export default function RootLayout({
           <CustomCursor />
           <Navbar />
           {children}
+          <PremiumWatermark />
         </SmoothScroll>
       </body>
     </html>

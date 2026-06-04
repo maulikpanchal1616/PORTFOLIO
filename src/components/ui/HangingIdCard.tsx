@@ -62,7 +62,7 @@ export const HangingIdCard = ({
   role         = "Full Stack Developer",
   badgeId      = "MP-2026",
   accentColor  = "#00e5ff", // Cyan
-  profileImage = "/images/profile.png",
+  profileImage = "/images/Maulik Photo.jpeg",
 }: HangingIdCardProps) => {
   const physRef      = useRef<CardPhysicsState>({ angle: 0, vel: 0 });
   const rafRef       = useRef<number | null>(null);
@@ -202,13 +202,13 @@ export const HangingIdCard = ({
                 <p className="text-[9px] font-bold tracking-[0.25em] text-white/90 uppercase">
                   DEVELOPER PASS
                 </p>
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm mt-1 shadow-inner overflow-hidden border border-white/10">
+                <div className="flex h-20 w-16 relative items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm mt-1 shadow-inner overflow-hidden border border-white/10">
                   <Image
                     src={profileImage}
                     alt="Maulik Panchal Profile, Full Stack Developer"
                     fill
-                    sizes="56px"
-                    className="object-cover mix-blend-normal filter brightness-100"
+                    sizes="64px"
+                    className="object-cover object-[center_20%] mix-blend-normal filter brightness-100"
                     loading="lazy"
                   />
                 </div>
