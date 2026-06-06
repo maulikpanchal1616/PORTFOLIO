@@ -24,6 +24,12 @@ const experiences = [
   }
 ];
 
+const certifications = [
+  "Python with Django",
+  "Ethical Hacking Fundamentals",
+  "5G Technology & Networking — Nokia"
+];
+
 export default function Experience() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -35,7 +41,7 @@ export default function Experience() {
 
   return (
     <section id="experience" ref={containerRef} className="relative w-full py-20 md:py-32 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)' }}>
-      <div className="max-w-4xl mx-auto px-4 relative">
+      <div className="max-w-4xl mx-auto px-4 relative pb-20">
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -49,7 +55,7 @@ export default function Experience() {
         </motion.div>
 
         {/* Timeline Line */}
-        <div className="absolute left-4 md:left-1/2 top-[200px] bottom-0 w-[2px] bg-white/10 -translate-x-1/2 rounded-full overflow-hidden">
+        <div className="absolute left-4 md:left-1/2 top-[200px] bottom-20 w-[2px] bg-white/10 -translate-x-1/2 rounded-full overflow-hidden">
           <motion.div 
             className="w-full bg-gradient-to-b from-[var(--color-cyan)] to-[var(--color-neon-purple)] glow-blue origin-top"
             style={{ height: lineHeight }}
@@ -87,6 +93,38 @@ export default function Experience() {
           })}
         </div>
 
+      </div>
+
+      {/* Certifications Section */}
+      <div className="max-w-7xl mx-auto px-4 mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16 text-center"
+        >
+          <h2 className="text-3xl md:text-5xl font-heading font-bold text-white tracking-tight mb-4 drop-shadow-[0_0_30px_rgba(255,255,255,0.25)]">
+            Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-neon-purple)] to-[var(--color-cyan)] filter drop-shadow-[0_0_25px_rgba(0,229,255,0.5)]">Certifications</span>
+          </h2>
+        </motion.div>
+
+        <div className="flex flex-col md:flex-row justify-center gap-6 flex-wrap">
+          {certifications.map((cert, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+              className="glass px-8 py-6 rounded-2xl border border-[var(--color-neon-purple)]/20 hover:border-[var(--color-neon-purple)] transition-colors duration-500 flex items-center gap-4 group cursor-default"
+            >
+              <div className="w-8 h-8 rounded-full bg-[var(--color-neon-purple)]/20 flex items-center justify-center group-hover:bg-[var(--color-neon-purple)]/40 transition-colors">
+                <div className="w-2 h-2 bg-[var(--color-cyan)] rounded-full glow-blue" />
+              </div>
+              <span className="text-white font-medium text-lg">{cert}</span>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 const links = [
   { name: "Home", href: "hero" },
@@ -19,6 +20,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 50);
@@ -50,16 +53,28 @@ export default function Navbar() {
       { rootMargin: "-10% 0px -10% 0px", threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] }
     );
 
-    const sections = document.querySelectorAll("section");
-    sections.forEach((section) => observer.observe(section));
+    const observeSections = () => {
+      const sections = document.querySelectorAll("section[id]");
+      sections.forEach((section) => observer.observe(section));
+    };
+
+    observeSections();
+    // Fallback delay to ensure sections are in DOM after navigation
+    const timeout = setTimeout(observeSections, 500);
 
     return () => {
-      sections.forEach((section) => observer.unobserve(section));
+      clearTimeout(timeout);
+      observer.disconnect();
     };
-  }, []);
+  }, [pathname]);
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
+    
+    if (pathname !== "/") {
+      router.push(targetId === "hero" ? "/" : `/#${targetId}`);
+      return;
+    }
     
     // Cleanly update the URL without causing Next.js hash duplication bugs
     const newUrl = targetId === "hero" ? "/" : `/#${targetId}`;
