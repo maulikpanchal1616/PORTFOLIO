@@ -63,6 +63,7 @@ export const metadata: Metadata = {
 import Global3DBackground from "@/components/ui/Global3DBackground";
 
 import PremiumWatermark from "@/components/ui/PremiumWatermark";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export default function RootLayout({
   children,
@@ -112,6 +113,7 @@ export default function RootLayout({
           <PremiumWatermark />
         </SmoothScroll>
       </body>
+      <GoogleAnalytics gaId="G-NEJR81JXWF" />
     </html>
   );
 }
