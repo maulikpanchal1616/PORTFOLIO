@@ -52,7 +52,18 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative w-full min-h-screen py-20 md:py-32 bg-transparent flex items-center justify-center overflow-hidden">
+    <section
+      id="contact"
+      aria-label="Contact MaulikVP — Freelance Web Developer in Ahmedabad, Gujarat, India"
+      itemScope
+      itemType="https://schema.org/LocalBusiness"
+      className="relative w-full min-h-screen py-20 md:py-32 bg-transparent flex items-center justify-center overflow-hidden"
+    >
+      {/* Hidden LocalBusiness metadata for crawlers */}
+      <span className="sr-only" itemProp="name">MaulikVP Web Development Services</span>
+      <span className="sr-only" itemProp="description">Freelance web development services in Ahmedabad, Gujarat, India. Business websites, portfolio websites, startup websites, Next.js and React development.</span>
+      <span className="sr-only" itemProp="email">maulikvpanchal2006@gmail.com</span>
+      <span className="sr-only" itemProp="areaServed">Ahmedabad, Gujarat, India</span>
 
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl aspect-square bg-[var(--color-electric-blue)]/10 rounded-full blur-[100px] pointer-events-none" />

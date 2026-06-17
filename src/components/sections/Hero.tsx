@@ -40,7 +40,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-transparent" style={{ maskImage: 'linear-gradient(to bottom, black 80%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent)' }}>
+    <section id="hero" aria-label="MaulikVP — Freelance Web Developer in Ahmedabad, Gujarat, India. Offering business website development, portfolio website development, startup website development, and full stack Next.js and React development services." className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-transparent" style={{ maskImage: 'linear-gradient(to bottom, black 80%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent)' }}>
       {/* Hero content */}
 
       {/* 3D Background */}
@@ -171,6 +171,16 @@ export default function Hero() {
           className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent"
         />
       </div>
+
+      {/* Hidden address for SEO — screen readers and crawlers only */}
+      <address className="sr-only" aria-label="Contact and location information">
+        MaulikVP — Maulik Panchal, Freelance Web Developer based in Ahmedabad, Gujarat, India.
+        Available for business website development, portfolio website development,
+        startup website development, landing page development, full stack web development,
+        Next.js development, React development, custom website development,
+        and SEO-friendly website development services across Ahmedabad, Gujarat, and India.
+        Contact: maulikvpanchal2006@gmail.com
+      </address>
     </section>
   );
 }

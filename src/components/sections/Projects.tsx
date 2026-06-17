@@ -112,7 +112,11 @@ const chapters = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative w-full min-h-screen py-24 md:py-32 bg-[#050505] overflow-hidden flex flex-col items-center">
+    <section
+      id="projects"
+      aria-label="Web development projects by MaulikVP — business websites, portfolio websites, startup websites, full stack applications built with Next.js and React"
+      className="relative w-full min-h-screen py-24 md:py-32 bg-[#050505] overflow-hidden flex flex-col items-center"
+    >
       
       {/* Background Ambience */}
       <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-[#0a0a0a] to-transparent pointer-events-none z-0"></div>

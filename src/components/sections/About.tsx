@@ -26,7 +26,15 @@ export default function About() {
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section id="about" ref={containerRef} className="relative w-full py-20 md:py-40 bg-transparent overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
+    <section
+      id="about"
+      ref={containerRef}
+      aria-label="About Maulik Panchal — Freelance Web Developer from Ahmedabad, Gujarat, India"
+      itemScope
+      itemType="https://schema.org/Person"
+      className="relative w-full py-20 md:py-40 bg-transparent overflow-hidden"
+      style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}
+    >
       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-10 md:gap-20">
         
         {/* Interactive Physics-based Hanging Developer Badge */}
@@ -61,8 +69,18 @@ export default function About() {
             </p>
           </div>
           <div className="flex gap-4 flex-wrap mt-4">
-            {["Full Stack Development", "AI-Powered Applications", "Interactive UI/UX Design", "Modern Frontend Experiences", "Startup-Focused Product Building"].map((tech, i) => (
-              <span key={i} className="px-4 py-2 rounded-full glass text-sm text-white/80 border border-white/5 hover:border-[var(--color-cyan)] hover:text-white transition-colors cursor-default">
+            {[
+              "Freelance Web Developer",
+              "Next.js Development",
+              "React Development",
+              "Full Stack Web Development",
+              "Business Website Development",
+              "Portfolio Website Development",
+              "Startup Website Development",
+              "Custom Website Development",
+              "Ahmedabad · Gujarat · India",
+            ].map((tech, i) => (
+              <span key={i} className="px-4 py-2 rounded-full glass text-sm text-white/80 border border-white/5 hover:border-[var(--color-cyan)] hover:text-white transition-colors cursor-default" itemProp="knowsAbout">
                 {tech}
               </span>
             ))}

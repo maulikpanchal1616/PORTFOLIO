@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full py-12 bg-transparent border-t border-white/5 overflow-hidden flex flex-col items-center justify-center">
+    <footer aria-label="Footer — MaulikVP Freelance Web Development Services" className="relative w-full py-12 bg-transparent border-t border-white/5 overflow-hidden flex flex-col items-center justify-center">
       {/* Glowing Accent Line */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--color-cyan)] to-transparent opacity-50" />
       
@@ -16,6 +16,9 @@ export default function Footer() {
       />
 
       <div className="relative z-10 flex flex-col items-center gap-6 px-4 text-center">
+        <p className="text-white/30 text-xs max-w-2xl leading-relaxed">
+          MaulikVP is a freelance web development service helping startups, businesses, freelancers and professionals build modern, responsive and SEO-friendly websites across Ahmedabad, Gujarat and India.
+        </p>
         <p className="text-white/60 font-light tracking-wide">
           Designed & Developed by <span className="text-white font-medium">Maulik Panchal</span>
         </p>

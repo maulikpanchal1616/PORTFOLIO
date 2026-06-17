@@ -7,7 +7,12 @@ import { OrbitControls } from "@react-three/drei";
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative w-full h-[80vh] md:h-screen bg-transparent overflow-hidden flex flex-col items-center justify-center" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)' }}>
+    <section
+      id="skills"
+      aria-label="Technical skills of MaulikVP — Next.js, React, TypeScript, Python, Django, JavaScript, full stack web development technologies"
+      className="relative w-full h-[80vh] md:h-screen bg-transparent overflow-hidden flex flex-col items-center justify-center"
+      style={{ maskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)' }}
+    >
       
       {/* Background is handled globally by Global3DBackground */}
  
