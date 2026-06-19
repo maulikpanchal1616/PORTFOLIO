@@ -235,7 +235,7 @@ export default function Contact() {
                 whileTap={status === "sending" ? {} : { scale: 0.95, rotateX: 0 }}
                 style={{ transformStyle: "preserve-3d", perspective: 1000 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                className="magnetic relative w-full py-4 mt-4 bg-white text-black font-bold rounded-xl overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
+                className="magnetic relative w-full py-4 mt-4 bg-white text-black font-bold rounded-xl overflow-hidden group disabled:opacity-50"
               >
                 <span className="relative z-10 group-hover:text-white transition-colors duration-500 block" style={{ transform: "translateZ(30px)" }}>
                   {status === "sending" ? "Sending..." : "Send Message"}

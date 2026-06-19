@@ -102,23 +102,24 @@ const DefaultCursorSVG: FC<{ size?: number; color?: string; className?: string }
   );
 };
 
+// ─── Trail dot count ────────────────────────────────────────────────────────
+const TRAIL_LEN = 7;
+
 export function SmoothCursor({
   cursor,
   springConfig = {
-    damping: 45,
-    stiffness: 400,
-    mass: 1,
+    damping: 28,       // silky — was 45 (too stiff/snappy)
+    stiffness: 180,   // was 400 (caused jitter on fast moves)
+    mass: 0.6,
     restDelta: 0.001,
   },
   className,
-  size = 18, // Ultra-sleek size
-  color = "#00e5ff", // Brand Cyan
+  size = 18,
+  color = "#00e5ff",
   hideOnLeave = true,
-  trailLength = 6,
-  showTrail = true, // Enable custom trailing trail effect
   rotateOnMove = true,
   scaleOnClick = true,
-  glowEffect = true, // Enable cosmic glowing effect
+  glowEffect = true,
   magneticDistance = 50,
   magneticElements = "a, button, [data-magnetic]",
   onCursorMove,
@@ -126,10 +127,7 @@ export function SmoothCursor({
   onCursorLeave,
   disabled = false,
 }: SmoothCursorProps) {
-  const [isMoving, setIsMoving] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [isClicking, setIsClicking] = useState(false);
-  const [trail, setTrail] = useState<Position[]>([]);
 
   const lastMousePos = useRef<Position>({ x: 0, y: 0 });
   const velocity = useRef<Position>({ x: 0, y: 0 });
@@ -137,18 +135,14 @@ export function SmoothCursor({
   const previousAngle = useRef(0);
   const accumulatedRotation = useRef(0);
 
+  // Trail: pre-rendered div refs — positions written directly, ZERO React state
+  const trailRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const trailPositions = useRef<Position[]>(Array.from({ length: TRAIL_LEN }, () => ({ x: 0, y: 0 })));
+
   const cursorX = useSpring(0, springConfig);
   const cursorY = useSpring(0, springConfig);
-  const rotation = useSpring(0, {
-    ...springConfig,
-    damping: 60,
-    stiffness: 300,
-  });
-  const scale = useSpring(1, {
-    ...springConfig,
-    stiffness: 500,
-    damping: 35,
-  });
+  const rotation = useSpring(0, { ...springConfig, damping: 60, stiffness: 260 });
+  const scale = useSpring(1, { ...springConfig, stiffness: 400, damping: 30 });
 
   const defaultCursor = <DefaultCursorSVG size={size} color={color} />;
   const cursorElement = cursor || defaultCursor;
@@ -156,195 +150,130 @@ export function SmoothCursor({
   useEffect(() => {
     if (disabled) return;
 
-    const updateVelocity = (currentPos: Position) => {
-      const currentTime = Date.now();
-      const deltaTime = currentTime - lastUpdateTime.current;
-
-      if (deltaTime > 0) {
+    const updateVelocity = (pos: Position) => {
+      const now = Date.now();
+      const dt = now - lastUpdateTime.current;
+      if (dt > 0) {
         velocity.current = {
-          x: (currentPos.x - lastMousePos.current.x) / deltaTime,
-          y: (currentPos.y - lastMousePos.current.y) / deltaTime,
+          x: (pos.x - lastMousePos.current.x) / dt,
+          y: (pos.y - lastMousePos.current.y) / dt,
         };
       }
-
-      lastUpdateTime.current = currentTime;
-      lastMousePos.current = currentPos;
+      lastUpdateTime.current = now;
+      lastMousePos.current = pos;
     };
 
-    const updateTrail = (pos: Position) => {
-      if (!showTrail) return;
-
-      setTrail(function (prev) {
-        var newTrail = [pos].concat(prev.slice(0, trailLength - 1));
-        return newTrail;
+    // Push new pos to front of trail array, write DOM directly
+    const pushTrail = (pos: Position) => {
+      trailPositions.current.unshift(pos);
+      trailPositions.current.length = TRAIL_LEN;
+      trailPositions.current.forEach((p, i) => {
+        const el = trailRefs.current[i];
+        if (!el) return;
+        el.style.transform = `translate(calc(${p.x}px - 50%), calc(${p.y}px - 50%))`;
       });
     };
 
-    const findMagneticElement = (x: number, y: number) => {
-      const elements = document.querySelectorAll(magneticElements);
-
-      for (const element of Array.from(elements)) {
-        const rect = element.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const distance = Math.sqrt(
-          Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2)
-        );
-
-        if (distance < magneticDistance) {
-          return { x: centerX, y: centerY, distance };
-        }
+    const findMagnetic = (x: number, y: number) => {
+      for (const el of Array.from(document.querySelectorAll(magneticElements))) {
+        const r = el.getBoundingClientRect();
+        const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        const d = Math.hypot(x - cx, y - cy);
+        if (d < magneticDistance) return { x: cx, y: cy, distance: d };
       }
       return null;
     };
 
-    const smoothMouseMove = (e: MouseEvent) => {
-      let currentPos = { x: e.clientX, y: e.clientY };
-
-      // Check for magnetic elements
-      const magneticTarget = findMagneticElement(currentPos.x, currentPos.y);
-      if (magneticTarget) {
-        const strength = 1 - (magneticTarget.distance / magneticDistance);
-        currentPos = {
-          x: currentPos.x + (magneticTarget.x - currentPos.x) * strength * 0.3,
-          y: currentPos.y + (magneticTarget.y - currentPos.y) * strength * 0.3,
-        };
-      }
-
-      updateVelocity(currentPos);
-      updateTrail(currentPos);
-
-      const speed = Math.sqrt(
-        Math.pow(velocity.current.x, 2) + Math.pow(velocity.current.y, 2),
-      );
-
-      cursorX.set(currentPos.x);
-      cursorY.set(currentPos.y);
-
-      onCursorMove?.(currentPos);
-
-      if (speed > 0.1 && rotateOnMove) {
-        const currentAngle =
-          Math.atan2(velocity.current.y, velocity.current.x) * (180 / Math.PI) +
-          90;
-
-        let angleDiff = currentAngle - previousAngle.current;
-        if (angleDiff > 180) angleDiff -= 360;
-        if (angleDiff < -180) angleDiff += 360;
-        accumulatedRotation.current += angleDiff;
-        rotation.set(accumulatedRotation.current);
-        previousAngle.current = currentAngle;
-
-        scale.set(0.95);
-        setIsMoving(true);
-
-        const timeout = setTimeout(function () {
-          scale.set(1);
-          setIsMoving(false);
-        }, 150);
-
-        return function () {
-          return clearTimeout(timeout);
-        };
-      }
-    };
-
-    const handleMouseEnter = function () {
-      setIsVisible(true);
-      onCursorEnter?.();
-    };
-
-    const handleMouseLeave = function () {
-      if (hideOnLeave) {
-        setIsVisible(false);
-      }
-      onCursorLeave?.();
-    };
-
-    const handleMouseDown = function () {
-      if (scaleOnClick) {
-        setIsClicking(true);
-        scale.set(0.8);
-      }
-    };
-
-    const handleMouseUp = function () {
-      if (scaleOnClick) {
-        setIsClicking(false);
-        scale.set(1);
-      }
-    };
-
-    let rafId: number;
-    const throttledMouseMove = function (e: MouseEvent) {
+    let rafId = 0;
+    const onMove = (e: MouseEvent) => {
       if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        let pos = { x: e.clientX, y: e.clientY };
+        const mag = findMagnetic(pos.x, pos.y);
+        if (mag) {
+          const s = 1 - mag.distance / magneticDistance;
+          pos = { x: pos.x + (mag.x - pos.x) * s * 0.3, y: pos.y + (mag.y - pos.y) * s * 0.3 };
+        }
+        updateVelocity(pos);
+        pushTrail(pos);
+        cursorX.set(pos.x);
+        cursorY.set(pos.y);
+        onCursorMove?.(pos);
 
-      rafId = requestAnimationFrame(function () {
-        smoothMouseMove(e);
+        if (rotateOnMove) {
+          const spd = Math.hypot(velocity.current.x, velocity.current.y);
+          if (spd > 0.1) {
+            const angle = Math.atan2(velocity.current.y, velocity.current.x) * (180 / Math.PI) + 90;
+            let diff = angle - previousAngle.current;
+            if (diff > 180) diff -= 360;
+            if (diff < -180) diff += 360;
+            accumulatedRotation.current += diff;
+            rotation.set(accumulatedRotation.current);
+            previousAngle.current = angle;
+          }
+        }
         rafId = 0;
       });
     };
 
-    document.body.style.cursor = "none";
-    window.addEventListener("mousemove", throttledMouseMove);
-    document.addEventListener("mouseenter", handleMouseEnter);
-    document.addEventListener("mouseleave", handleMouseLeave);
-    document.addEventListener("mousedown", handleMouseDown);
-    document.addEventListener("mouseup", handleMouseUp);
+    const onEnter = () => { setIsVisible(true); onCursorEnter?.(); };
+    const onLeave = () => { if (hideOnLeave) setIsVisible(false); onCursorLeave?.(); };
+    const onDown  = () => { if (scaleOnClick) scale.set(0.78); };
+    const onUp    = () => { if (scaleOnClick) scale.set(1); };
 
-    return function () {
-      window.removeEventListener("mousemove", throttledMouseMove);
-      document.removeEventListener("mouseenter", handleMouseEnter);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-      document.removeEventListener("mousedown", handleMouseDown);
-      document.removeEventListener("mouseup", handleMouseUp);
+    document.body.style.cursor = "none";
+    window.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseenter", onEnter);
+    document.addEventListener("mouseleave", onLeave);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("mouseup", onUp);
+
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseenter", onEnter);
+      document.removeEventListener("mouseleave", onLeave);
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("mouseup", onUp);
       document.body.style.cursor = "auto";
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [
-    cursorX,
-    cursorY,
-    rotation,
-    scale,
-    disabled,
-    showTrail,
-    trailLength,
-    rotateOnMove,
-    scaleOnClick,
-    hideOnLeave,
-    magneticDistance,
-    magneticElements,
-    onCursorMove,
-    onCursorEnter,
-    onCursorLeave
+    cursorX, cursorY, rotation, scale, disabled,
+    rotateOnMove, scaleOnClick, hideOnLeave,
+    magneticDistance, magneticElements,
+    onCursorMove, onCursorEnter, onCursorLeave
   ]);
 
-  if (disabled || !isVisible) return null;
+  if (disabled) return null;
 
   return (
     <>
-      {/* Trail Effect */}
-      {showTrail && trail.map(function (pos, index) {
-        return (
-          <motion.div
-            key={index}
-            style={{
-              position: "fixed",
-              left: pos.x,
-              top: pos.y,
-              translateX: "-50%",
-              translateY: "-50%",
-              zIndex: 9998 - index,
-              pointerEvents: "none",
-              opacity: (trailLength - index) / trailLength * 0.3,
-              scale: (trailLength - index) / trailLength * 0.6,
-            }}
-            className="w-2.5 h-2.5 bg-[#00e5ff] rounded-full blur-[1px]"
-          />
-        );
-      })}
+      {/* Trail dots — pre-rendered, positions written via DOM refs */}
+      {Array.from({ length: TRAIL_LEN }).map((_, i) => (
+        <div
+          key={i}
+          ref={el => { trailRefs.current[i] = el; }}
+          aria-hidden
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: `${10 - i}px`,
+            height: `${10 - i}px`,
+            borderRadius: "50%",
+            backgroundColor: "#00e5ff",
+            opacity: ((TRAIL_LEN - i) / TRAIL_LEN) * 0.22,
+            filter: "blur(1px)",
+            zIndex: 9998 - i,
+            pointerEvents: "none",
+            willChange: "transform",
+            transform: "translate(-50%, -50%)",
+            display: isVisible ? "block" : "none",
+          }}
+        />
+      ))}
 
-      {/* Main Cursor */}
+      {/* Main cursor */}
       <motion.div
         style={{
           position: "fixed",
@@ -353,20 +282,15 @@ export function SmoothCursor({
           translateX: "-50%",
           translateY: "-50%",
           rotate: rotateOnMove ? rotation : 0,
-          scale: scale,
+          scale,
           zIndex: 9999,
           pointerEvents: "none",
           willChange: "transform",
-          filter: glowEffect ? "drop-shadow(0 0 12px #00e5ffb0)" : "none",
+          filter: glowEffect ? "drop-shadow(0 0 10px #00e5ffb0)" : "none",
+          display: isVisible ? "block" : "none",
         }}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0, opacity: 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 400,
-          damping: 30,
-        }}
         className={cn("select-none", className)}
       >
         {cursorElement}

@@ -116,6 +116,7 @@ export const metadata: Metadata = {
 
 import Global3DBackground from "@/components/ui/Global3DBackground";
 import PremiumWatermark from "@/components/ui/PremiumWatermark";
+import ScrollProgressBar from "@/components/layout/ScrollProgressBar";
 import { GoogleAnalytics } from '@next/third-parties/google';
 
 export default function RootLayout({
@@ -426,6 +427,7 @@ export default function RootLayout({
         <Global3DBackground />
         <SmoothScroll>
           <CustomCursor />
+          <ScrollProgressBar />
           <Navbar />
           {children}
           <PremiumWatermark />
